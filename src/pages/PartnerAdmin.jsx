@@ -200,7 +200,7 @@ const PartnerAdmin = () => {
           <h3>Seu Link Exclusivo</h3>
         </div>
         <p className="share-link-desc">
-          Compartilhe este link com seus clientes. Quando eles acessarem, a loja será configurada automaticamente com o seu nome e seu contato!
+          Divulgue o seu catálogo copiando o link abaixo:
         </p>
         <div className="share-link-box">
           <input type="text" readOnly value={generateShareLink()} className="share-link-input" />
