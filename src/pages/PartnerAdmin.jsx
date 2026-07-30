@@ -240,13 +240,22 @@ const PartnerAdmin = () => {
           <div className="form-row">
             <div className="form-group">
               <label>Categoria Principal da Loja</label>
-              <input
-                type="text"
-                placeholder="Ex: Acessórios"
+              <select
                 value={partnerStoreCategory}
                 onChange={(e) => setPartnerStoreCategory(e.target.value)}
                 required
-              />
+              >
+                <option value="Acessórios">Acessórios</option>
+                <option value="Eletrônicos">Eletrônicos</option>
+                <option value="Roupas e Moda">Roupas e Moda</option>
+                <option value="Beleza e Perfumaria">Beleza e Perfumaria</option>
+                <option value="Casa e Decoração">Casa e Decoração</option>
+                <option value="Esportes e Lazer">Esportes e Lazer</option>
+                <option value="Brinquedos">Brinquedos</option>
+                <option value="Calçados">Calçados</option>
+                <option value="Livros e Papelaria">Livros e Papelaria</option>
+                <option value="Diversos">Diversos</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Sua Chave PIX</label>
@@ -352,13 +361,22 @@ const PartnerAdmin = () => {
               </div>
               <div className="form-group">
                 <label>Categoria</label>
-                <input 
-                  type="text" 
+                <select 
                   value={prodCategory} 
                   onChange={(e) => setProdCategory(e.target.value)}
-                  placeholder="Ex: Roupas, Perfumes..."
                   required
-                />
+                >
+                  <option value="Acessórios">Acessórios</option>
+                  <option value="Eletrônicos">Eletrônicos</option>
+                  <option value="Roupas e Moda">Roupas e Moda</option>
+                  <option value="Beleza e Perfumaria">Beleza e Perfumaria</option>
+                  <option value="Casa e Decoração">Casa e Decoração</option>
+                  <option value="Esportes e Lazer">Esportes e Lazer</option>
+                  <option value="Brinquedos">Brinquedos</option>
+                  <option value="Calçados">Calçados</option>
+                  <option value="Livros e Papelaria">Livros e Papelaria</option>
+                  <option value="Diversos">Diversos</option>
+                </select>
               </div>
             </div>
 

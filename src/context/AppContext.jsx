@@ -57,7 +57,47 @@ const initialProducts = [
     image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400',
     isBoxPrize: false,
     isActiveInStore: true,
-    category: 'Diversos'
+    category: 'Acessórios'
+  },
+  {
+    id: 'demo-5',
+    name: 'Perfume Masculino 100ml',
+    price: '189,90',
+    oldPrice: '249,90',
+    image: 'https://images.unsplash.com/photo-1523293115678-d2900f52f46b?auto=format&fit=crop&q=80&w=400',
+    isBoxPrize: true,
+    isActiveInStore: true,
+    category: 'Beleza e Perfumaria'
+  },
+  {
+    id: 'demo-6',
+    name: 'Tênis Esportivo Running',
+    price: '199,90',
+    oldPrice: '299,90',
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=400',
+    isBoxPrize: false,
+    isActiveInStore: true,
+    category: 'Calçados'
+  },
+  {
+    id: 'demo-7',
+    name: 'Camiseta de Algodão',
+    price: '49,90',
+    oldPrice: '69,90',
+    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=400',
+    isBoxPrize: true,
+    isActiveInStore: true,
+    category: 'Roupas e Moda'
+  },
+  {
+    id: 'demo-8',
+    name: 'Caneca Térmica Inox',
+    price: '65,00',
+    oldPrice: '89,90',
+    image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&q=80&w=400',
+    isBoxPrize: true,
+    isActiveInStore: true,
+    category: 'Casa e Decoração'
   }
 ];
 
