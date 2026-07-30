@@ -90,3 +90,26 @@
 .login-btn {
   margin-top: 12px;
 }
+
+.auth-toggle {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.auth-toggle p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.auth-toggle span {
+  color: var(--color-green);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: opacity 0.2s;
+}
+
+.auth-toggle span:hover {
+  opacity: 0.7;
+}
