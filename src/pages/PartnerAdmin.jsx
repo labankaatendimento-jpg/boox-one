@@ -34,6 +34,7 @@ const PartnerAdmin = () => {
   const [partnerBoxPrice, setPartnerBoxPrice] = useState(partner.boxPrice || '19,90');
   const [partnerStoreCategory, setPartnerStoreCategory] = useState(partner.storeCategory || 'Acessórios');
   const [partnerAvatar, setPartnerAvatar] = useState(partner.avatar || '');
+  const [partnerPixKey, setPartnerPixKey] = useState(partner.pixKey || '');
   const [acceptPix, setAcceptPix] = useState(partner.paymentMethods?.pix ?? true);
   const [acceptCartao, setAcceptCartao] = useState(partner.paymentMethods?.cartao ?? true);
   const [acceptDinheiro, setAcceptDinheiro] = useState(partner.paymentMethods?.dinheiro ?? true);
@@ -51,8 +52,24 @@ const PartnerAdmin = () => {
   const [isActiveInStore, setIsActiveInStore] = useState(true);
   const [uploading, setUploading] = useState(false);
 
+  useEffect(() => {
+    setPartnerName(partner.name);
+    setPartnerPhone(partner.phone);
+    setPartnerBoxPrice(partner.boxPrice);
+    setPartnerStoreCategory(partner.storeCategory);
+    setPartnerAvatar(partner.avatar || '');
+    setPartnerPixKey(partner.pixKey || '');
+    setAcceptPix(partner.paymentMethods?.pix ?? true);
+    setAcceptCartao(partner.paymentMethods?.cartao ?? true);
+    setAcceptDinheiro(partner.paymentMethods?.dinheiro ?? true);
+  }, [partner]);
+
   const handleSaveProfile = async (e) => {
     e.preventDefault();
+    if (!partner.id) {
+      alert("Aguarde o carregamento do perfil ou faça login novamente.");
+      return;
+    }
     setSaveSuccess(false);
 
     try {
@@ -62,6 +79,7 @@ const PartnerAdmin = () => {
         box_price: partnerBoxPrice,
         store_category: partnerStoreCategory,
         avatar: partnerAvatar,
+        pix_key: partnerPixKey,
         payment_methods: { pix: acceptPix, cartao: acceptCartao, dinheiro: acceptDinheiro }
       }).eq('id', partner.id);
 
@@ -74,6 +92,7 @@ const PartnerAdmin = () => {
         boxPrice: partnerBoxPrice,
         storeCategory: partnerStoreCategory,
         avatar: partnerAvatar,
+        pixKey: partnerPixKey,
         paymentMethods: { pix: acceptPix, cartao: acceptCartao, dinheiro: acceptDinheiro }
       }));
       setSaveSuccess(true);
@@ -169,7 +188,6 @@ const PartnerAdmin = () => {
         </div>
       </div>
 
-      {/* Seção Exclusiva: Link do Parceiro */}
       <section className="admin-section share-link-section">
         <div className="share-link-header">
           <LinkIcon size={20} color="var(--color-green)" />
@@ -186,7 +204,6 @@ const PartnerAdmin = () => {
         </div>
       </section>
 
-      {/* Seção 1: Dados do Parceiro */}
       <section className="admin-section">
         <h3>Dados do Parceiro (Perfil)</h3>
         <form onSubmit={handleSaveProfile} className="admin-form">
@@ -229,6 +246,15 @@ const PartnerAdmin = () => {
                 value={partnerStoreCategory}
                 onChange={(e) => setPartnerStoreCategory(e.target.value)}
                 required
+              />
+            </div>
+            <div className="form-group">
+              <label>Sua Chave PIX</label>
+              <input
+                type="text"
+                placeholder="Ex: seuemail@pix.com.br ou (11) 99999-9999"
+                value={partnerPixKey}
+                onChange={(e) => setPartnerPixKey(e.target.value)}
               />
             </div>
           </div>
@@ -301,7 +327,6 @@ const PartnerAdmin = () => {
         </form>
       </section>
 
-      {/* Seção 2: Adicionar Produto */}
       <section className="admin-section">
         <div className="section-header">
           <h3>Catálogo de Produtos</h3>

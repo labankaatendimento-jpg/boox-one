@@ -13,6 +13,7 @@ const initialPartner = {
   ratingsCount: 124,
   deliveries: '1k+',
   responseTime: '2 min',
+  pixKey: '',
   paymentMethods: { pix: true, cartao: true, dinheiro: true },
   storeCategory: 'Acessórios'
 };
@@ -95,6 +96,7 @@ export const AppProvider = ({ children }) => {
           ratingsCount: partnerData.ratings_count,
           deliveries: partnerData.deliveries,
           responseTime: partnerData.response_time,
+          pixKey: partnerData.pix_key || '',
           paymentMethods: partnerData.payment_methods || { pix: true, cartao: true, dinheiro: true }
         });
         localStorage.setItem('last_partner_id', partnerId);

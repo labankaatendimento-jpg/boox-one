@@ -15,7 +15,7 @@ const Payment = () => {
   let descriptionText = 'Copie a chave Pix abaixo para realizar o pagamento.';
   let confirmNotice = 'Confirme o pagamento Pix diretamente com o parceiro.';
   let showPixSection = true;
-  let pixLabel = 'Chave Pix (Telefone)';
+  let pixLabel = 'Chave Pix do Parceiro';
 
   if (method === 'cartao') {
     methodTitle = 'Pagamento via Cartão';
@@ -26,11 +26,12 @@ const Payment = () => {
     methodTitle = 'Pagamento em Dinheiro';
     descriptionText = 'Realize o pagamento em dinheiro físico ou utilize a chave Pix abaixo se preferir.';
     confirmNotice = 'Confirme o pagamento em dinheiro ou Pix diretamente com o parceiro.';
-    pixLabel = 'Chave Pix facilitadora (Telefone)';
+    pixLabel = 'Chave Pix do Parceiro';
   }
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(partner.phone);
+    const pixToCopy = partner.pixKey || partner.phone;
+    navigator.clipboard.writeText(pixToCopy);
     alert('Chave Pix copiada!');
   };
 
@@ -61,7 +62,7 @@ const Payment = () => {
         <div className="pix-key-section">
           <p className="label">{pixLabel}</p>
           <div className="copy-box">
-            <span className="key-text">{partner.phone}</span>
+            <span className="key-text">{partner.pixKey || partner.phone}</span>
             <button className="btn-copy" onClick={handleCopy}>
               <Copy size={16} />
               Copiar
