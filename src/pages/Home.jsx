@@ -17,9 +17,6 @@ const Home = () => {
       <div className="home-header">
         <div className="brand-logo">BOOX<span>•</span>ONE</div>
         <p className="home-tagline">Abra <span>•</span> Descubra <span>•</span> Ganhe</p>
-        <div className="partner-simple-text">
-          Boox do {partnerName}
-        </div>
       </div>
 
       <div className="mystery-box-banner" onClick={() => navigate('/caixas')}>
