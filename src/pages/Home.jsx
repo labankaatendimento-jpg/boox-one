@@ -23,7 +23,7 @@ const Home = () => {
         <img src="/banner.jpg" alt="Caixa Misteriosa BOOX ONE" />
       </div>
 
-      <div className="page-header left-align" style={{ marginTop: '32px' }}>
+      <div className="page-header left-align">
         <h2>Destaques para você</h2>
         <p>Produtos com preços especiais para você aproveitar!</p>
       </div>
