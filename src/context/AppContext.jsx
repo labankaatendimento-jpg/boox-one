@@ -5,24 +5,67 @@ export const AppContext = createContext();
 
 const initialPartner = {
   id: '',
-  name: 'Carregando...',
-  phone: '',
-  avatar: '',
+  name: 'Loja Exemplo',
+  phone: '(11) 99999-9999',
+  avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150',
   boxPrice: '19,90',
   rating: '5.0',
   ratingsCount: 124,
   deliveries: '1k+',
   responseTime: '2 min',
-  pixKey: '',
+  pixKey: 'email@lojaexemplo.com',
   paymentMethods: { pix: true, cartao: true, dinheiro: true },
   storeCategory: 'Acessórios'
 };
+
+const initialProducts = [
+  {
+    id: 'demo-1',
+    name: 'Fone de Ouvido Bluetooth',
+    price: '89,90',
+    oldPrice: '129,90',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400',
+    isBoxPrize: true,
+    isActiveInStore: true,
+    category: 'Eletrônicos'
+  },
+  {
+    id: 'demo-2',
+    name: 'Smartwatch Esportivo',
+    price: '149,90',
+    oldPrice: '199,90',
+    image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=400',
+    isBoxPrize: true,
+    isActiveInStore: true,
+    category: 'Eletrônicos'
+  },
+  {
+    id: 'demo-3',
+    name: 'Óculos de Sol Premium',
+    price: '79,90',
+    oldPrice: '119,90',
+    image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=400',
+    isBoxPrize: true,
+    isActiveInStore: true,
+    category: 'Acessórios'
+  },
+  {
+    id: 'demo-4',
+    name: 'Mochila Impermeável',
+    price: '119,90',
+    oldPrice: '159,90',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400',
+    isBoxPrize: false,
+    isActiveInStore: true,
+    category: 'Diversos'
+  }
+];
 
 
 
 export const AppProvider = ({ children }) => {
   const [partner, setPartner] = useState(initialPartner);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(initialProducts);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +93,7 @@ export const AppProvider = ({ children }) => {
       } else {
         setIsLoggedIn(false);
         setPartner(initialPartner);
-        setProducts([]);
+        setProducts(initialProducts);
       }
     });
 
