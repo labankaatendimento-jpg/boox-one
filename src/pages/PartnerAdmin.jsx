@@ -73,8 +73,13 @@ const PartnerAdmin = () => {
     setSaveSuccess(false);
 
     try {
+      // Pegar o e-mail do usuário autenticado para o upsert
+      const { data: { user } } = await supabase.auth.getUser();
+      const userEmail = user?.email || '';
+
       const { error } = await supabase.from('partners').upsert({
         id: partner.id,
+        email: userEmail,
         name: partnerName,
         phone: partnerPhone,
         box_price: partnerBoxPrice,
