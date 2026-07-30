@@ -183,6 +183,10 @@ export const AppProvider = ({ children }) => {
           paymentMethods: partnerData.payment_methods || { pix: true, cartao: true, dinheiro: true }
         });
         localStorage.setItem('last_partner_id', partnerId);
+      } else {
+        // If row is missing in DB (e.g., signup interrupted), still set ID so we can upsert later
+        setPartner((prev) => ({ ...prev, id: partnerId }));
+        localStorage.setItem('last_partner_id', partnerId);
       }
 
       // 2. Fetch partner products

@@ -73,7 +73,8 @@ const PartnerAdmin = () => {
     setSaveSuccess(false);
 
     try {
-      const { error } = await supabase.from('partners').update({
+      const { error } = await supabase.from('partners').upsert({
+        id: partner.id,
         name: partnerName,
         phone: partnerPhone,
         box_price: partnerBoxPrice,
@@ -81,7 +82,7 @@ const PartnerAdmin = () => {
         avatar: partnerAvatar,
         pix_key: partnerPixKey,
         payment_methods: { pix: acceptPix, cartao: acceptCartao, dinheiro: acceptDinheiro }
-      }).eq('id', partner.id);
+      });
 
       if (error) throw error;
 
