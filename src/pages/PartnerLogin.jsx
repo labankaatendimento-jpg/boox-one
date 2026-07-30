@@ -7,7 +7,7 @@ import './PartnerLogin.css';
 
 const PartnerLogin = () => {
   const navigate = useNavigate();
-  const { loginPartner } = useContext(AppContext);
+  const { setPartner } = useContext(AppContext);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -71,6 +71,21 @@ const PartnerLogin = () => {
           }]);
 
           if (profileError) throw profileError;
+
+          // Update context immediately to avoid race condition with onAuthStateChange
+          setPartner((prev) => ({
+            ...prev,
+            id: authData.user.id,
+            slug: finalSlug,
+            email,
+            name,
+            phone,
+            boxPrice: '19,90',
+            storeCategory: 'Acessórios',
+            avatar: '',
+            pixKey: '',
+            paymentMethods: { pix: true, cartao: true, dinheiro: true }
+          }));
         }
 
       } else {
