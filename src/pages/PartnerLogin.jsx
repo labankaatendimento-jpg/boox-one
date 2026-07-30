@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
-import { Lock, Phone, User } from 'lucide-react';
+import { Lock, Phone, User, Mail } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import './PartnerLogin.css';
 
 const PartnerLogin = () => {
@@ -10,18 +11,60 @@ const PartnerLogin = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !phone || !password) {
-      setError('Por favor, preencha todos os campos.');
-      return;
+    setError('');
+    setLoading(true);
+
+    try {
+      if (isSignUp) {
+        if (!name || !phone || !email || !password) {
+          throw new Error('Por favor, preencha todos os campos.');
+        }
+
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+
+        if (authError) throw authError;
+
+        if (authData.user) {
+          const { error: profileError } = await supabase.from('partners').insert([{
+            id: authData.user.id,
+            email,
+            name,
+            phone,
+            box_price: '19,90',
+            store_category: 'Acessórios'
+          }]);
+
+          if (profileError) throw profileError;
+        }
+
+      } else {
+        if (!email || !password) {
+          throw new Error('Por favor, preencha email e senha.');
+        }
+
+        const { error: authError } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (authError) throw authError;
+      }
+      
+      navigate('/admin/dashboard');
+    } catch (err) {
+      setError(err.message || 'Ocorreu um erro na autenticação.');
+    } finally {
+      setLoading(false);
     }
-    
-    // For demo purposes, any password is accepted, but let's encourage 123456
-    loginPartner(name, phone);
-    navigate('/admin/dashboard');
   };
 
   return (
@@ -35,28 +78,45 @@ const PartnerLogin = () => {
       <form className="login-form" onSubmit={handleSubmit}>
         {error && <div className="error-message">{error}</div>}
 
-        <div className="input-group">
-          <label>Seu Nome</label>
-          <div className="input-wrapper">
-            <User size={20} className="input-icon" />
-            <input
-              type="text"
-              placeholder="Ex: Carlos Silva"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-        </div>
+        {isSignUp && (
+          <>
+            <div className="input-group">
+              <label>Seu Nome</label>
+              <div className="input-wrapper">
+                <User size={20} className="input-icon" />
+                <input
+                  type="text"
+                  placeholder="Ex: Carlos Silva"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label>Telefone / WhatsApp</label>
+              <div className="input-wrapper">
+                <Phone size={20} className="input-icon" />
+                <input
+                  type="text"
+                  placeholder="Ex: (11) 99999-9999"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+            </div>
+          </>
+        )}
 
         <div className="input-group">
-          <label>Telefone / WhatsApp</label>
+          <label>E-mail</label>
           <div className="input-wrapper">
-            <Phone size={20} className="input-icon" />
+            <Mail size={20} className="input-icon" />
             <input
-              type="text"
-              placeholder="Ex: (11) 99999-9999"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              type="email"
+              placeholder="seu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
         </div>
@@ -72,12 +132,19 @@ const PartnerLogin = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <span className="helper-text">Pode digitar qualquer senha para demonstração</span>
         </div>
 
-        <button type="submit" className="btn-primary login-btn">
-          Entrar no Painel
+        <button type="submit" className="btn-primary login-btn" disabled={loading}>
+          {loading ? 'Aguarde...' : (isSignUp ? 'Criar Conta' : 'Entrar no Painel')}
         </button>
+
+        <div className="auth-toggle">
+          {isSignUp ? (
+            <p>Já tem uma conta? <span onClick={() => setIsSignUp(false)}>Fazer Login</span></p>
+          ) : (
+            <p>Não tem uma conta? <span onClick={() => setIsSignUp(true)}>Criar Conta</span></p>
+          )}
+        </div>
       </form>
     </div>
   );

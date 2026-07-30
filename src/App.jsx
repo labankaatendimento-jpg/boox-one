@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, AppContext } from './context/AppContext';
+import { useContext } from 'react';
 import BottomBar from './components/BottomBar';
 import Home from './pages/Home';
 import Welcome from './pages/Welcome';
@@ -33,13 +34,22 @@ const BottomBarWrapper = () => {
   return !isAdminRoute ? <BottomBar /> : null;
 };
 
-function App() {
+const AppRoutes = () => {
+  const { loading } = useContext(AppContext);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', height: '100vh', width: '100vw', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--bg-main)', color: 'var(--color-green)' }}>
+        <h2>Carregando loja...</h2>
+      </div>
+    );
+  }
+
   return (
-    <AppProvider>
-      <Router>
-        <ScrollToTop />
-        <div className="app-container">
-          <Routes>
+    <>
+      <ScrollToTop />
+      <div className="app-container">
+        <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/caixas" element={<Welcome />} />
             <Route path="/premios" element={<Prizes />} />
@@ -57,8 +67,17 @@ function App() {
             
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-          <BottomBarWrapper />
-        </div>
+        <BottomBarWrapper />
+      </div>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <AppProvider>
+      <Router>
+        <AppRoutes />
       </Router>
     </AppProvider>
   );

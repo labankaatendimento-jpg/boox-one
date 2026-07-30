@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { LogOut, Sun, Moon, Plus, Trash2, Save, Upload, Gift, Link as LinkIcon, Copy } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import './PartnerAdmin.css';
 
 const PartnerAdmin = () => {
@@ -50,26 +51,39 @@ const PartnerAdmin = () => {
   const [isActiveInStore, setIsActiveInStore] = useState(true);
   const [uploading, setUploading] = useState(false);
 
-  const handleSaveProfile = (e) => {
+  const handleSaveProfile = async (e) => {
     e.preventDefault();
-    setPartner((prev) => ({
-      ...prev,
-      name: partnerName,
-      phone: partnerPhone,
-      boxPrice: partnerBoxPrice,
-      storeCategory: partnerStoreCategory,
-      avatar: partnerAvatar,
-      paymentMethods: {
-        pix: acceptPix,
-        cartao: acceptCartao,
-        dinheiro: acceptDinheiro
-      }
-    }));
-    setSaveSuccess(true);
-    setTimeout(() => {
-      setSaveSuccess(false);
-      navigate('/perfil'); // Back to partner's profile screen!
-    }, 800);
+    setSaveSuccess(false);
+
+    try {
+      const { error } = await supabase.from('partners').update({
+        name: partnerName,
+        phone: partnerPhone,
+        box_price: partnerBoxPrice,
+        store_category: partnerStoreCategory,
+        avatar: partnerAvatar,
+        payment_methods: { pix: acceptPix, cartao: acceptCartao, dinheiro: acceptDinheiro }
+      }).eq('id', partner.id);
+
+      if (error) throw error;
+
+      setPartner((prev) => ({
+        ...prev,
+        name: partnerName,
+        phone: partnerPhone,
+        boxPrice: partnerBoxPrice,
+        storeCategory: partnerStoreCategory,
+        avatar: partnerAvatar,
+        paymentMethods: { pix: acceptPix, cartao: acceptCartao, dinheiro: acceptDinheiro }
+      }));
+      setSaveSuccess(true);
+      setTimeout(() => {
+        setSaveSuccess(false);
+        navigate('/perfil');
+      }, 800);
+    } catch (error) {
+      alert("Erro ao salvar perfil: " + error.message);
+    }
   };
 
   const handleAvatarUpload = (e) => {
@@ -128,19 +142,7 @@ const PartnerAdmin = () => {
   };
 
   const generateShareLink = () => {
-    const dataToShare = {
-      name: partner.name,
-      phone: partner.phone,
-      boxPrice: partner.boxPrice,
-      storeCategory: partner.storeCategory,
-      paymentMethods: partner.paymentMethods
-    };
-    try {
-      const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(dataToShare))));
-      return `${window.location.origin}/?p=${b64}`;
-    } catch (e) {
-      return window.location.origin;
-    }
+    return `${window.location.origin}/?p=${partner.id}`;
   };
 
   const handleCopyLink = () => {
