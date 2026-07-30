@@ -35,8 +35,34 @@ const PartnerLogin = () => {
         if (authError) throw authError;
 
         if (authData.user) {
+          // Generate unique slug
+          const baseSlug = name
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '');
+          
+          let finalSlug = baseSlug;
+          let counter = 2;
+          
+          // Check for existing slug loop (safe limit to avoid infinite loops)
+          for (let i = 0; i < 50; i++) {
+            const { data: existingSlug } = await supabase
+              .from('partners')
+              .select('slug')
+              .eq('slug', finalSlug)
+              .maybeSingle();
+              
+            if (!existingSlug) break; // Unique!
+            
+            finalSlug = `${baseSlug}-${counter}`;
+            counter++;
+          }
+
           const { error: profileError } = await supabase.from('partners').insert([{
             id: authData.user.id,
+            slug: finalSlug,
             email,
             name,
             phone,

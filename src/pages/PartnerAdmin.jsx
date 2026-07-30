@@ -167,7 +167,7 @@ const PartnerAdmin = () => {
   };
 
   const generateShareLink = () => {
-    return `${window.location.origin}/?p=${partner.id}`;
+    return `${window.location.origin}/?p=${partner.slug || partner.id}`;
   };
 
   const handleCopyLink = () => {

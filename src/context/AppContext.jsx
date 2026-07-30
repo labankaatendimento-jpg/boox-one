@@ -5,6 +5,7 @@ export const AppContext = createContext();
 
 const initialPartner = {
   id: '',
+  slug: 'loja-exemplo',
   name: 'Loja Exemplo',
   phone: '(11) 99999-9999',
   avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150',
@@ -157,19 +158,24 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const loadPartnerData = async (partnerId) => {
+  const loadPartnerData = async (partnerIdOrSlug) => {
     setLoading(true);
     try {
+      // Determina se o parâmetro é um UUID ou um slug
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(partnerIdOrSlug);
+      
       // 1. Fetch partner details
       const { data: partnerData, error: partnerError } = await supabase
         .from('partners')
         .select('*')
-        .eq('id', partnerId)
+        .eq(isUUID ? 'id' : 'slug', partnerIdOrSlug)
         .single();
       
       if (partnerData) {
         setPartner({
           id: partnerData.id,
+          slug: partnerData.slug,
+          email: partnerData.email,
           name: partnerData.name,
           phone: partnerData.phone,
           boxPrice: partnerData.box_price,
@@ -182,18 +188,23 @@ export const AppProvider = ({ children }) => {
           pixKey: partnerData.pix_key || '',
           paymentMethods: partnerData.payment_methods || { pix: true, cartao: true, dinheiro: true }
         });
-        localStorage.setItem('last_partner_id', partnerId);
+        localStorage.setItem('last_partner_id', partnerData.id); // Save actual ID for future
       } else {
         // If row is missing in DB (e.g., signup interrupted), still set ID so we can upsert later
-        setPartner((prev) => ({ ...prev, id: partnerId }));
-        localStorage.setItem('last_partner_id', partnerId);
+        // Note: this fallback only happens if partnerIdOrSlug was an ID (from a session)
+        const { data: { user } } = await supabase.auth.getUser();
+        const emailToUse = user && user.id === partnerIdOrSlug ? user.email : '';
+        setPartner((prev) => ({ ...prev, id: partnerIdOrSlug, email: emailToUse }));
+        localStorage.setItem('last_partner_id', partnerIdOrSlug);
       }
 
       // 2. Fetch partner products
+      // We must use the resolved ID here (partnerData.id or partnerIdOrSlug)
+      const resolvedId = partnerData ? partnerData.id : partnerIdOrSlug;
       const { data: productsData } = await supabase
         .from('products')
         .select('*')
-        .eq('partner_id', partnerId);
+        .eq('partner_id', resolvedId);
       
       if (productsData) {
         setProducts(productsData.map(p => ({
