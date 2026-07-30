@@ -143,6 +143,13 @@ export const AppProvider = ({ children }) => {
 
   const checkUrlForPartner = async () => {
     const params = new URLSearchParams(window.location.search);
+    
+    // Developer utility to clear the cached partner
+    if (params.get('reset')) {
+      localStorage.removeItem('last_partner_id');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     const p = params.get('p'); // ID do parceiro
     if (p) {
       await loadPartnerData(p);
@@ -290,6 +297,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const logoutPartner = async () => {
+    localStorage.removeItem('last_partner_id');
     await supabase.auth.signOut();
   };
 
