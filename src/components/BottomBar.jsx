@@ -7,6 +7,9 @@ import './BottomBar.css';
 const BottomBar = () => {
   const { partner } = useContext(AppContext);
 
+  const firstName = partner.name ? partner.name.trim().split(' ')[0] : 'Parceiro';
+  const nameFontSize = firstName.length > 10 ? '0.50rem' : firstName.length > 8 ? '0.55rem' : '0.65rem';
+
   return (
     <nav className="bottom-bar">
       <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} end>
@@ -26,7 +29,7 @@ const BottomBar = () => {
       
       <NavLink to="/perfil" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
         <User size={24} strokeWidth={2} />
-        <span>{partner.name || 'Parceiro'}</span>
+        <span style={{ fontSize: nameFontSize }}>{firstName}</span>
       </NavLink>
     </nav>
   );
