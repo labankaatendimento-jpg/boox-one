@@ -17,22 +17,7 @@ const initialPartner = {
   storeCategory: 'Acessórios'
 };
 
-const initialPartner = {
-  name: 'Carlos',
-  phone: '(11) 99999-9999',
-  avatar: '',
-  boxPrice: '19,90',
-  rating: '5.0',
-  ratingsCount: 124,
-  deliveries: '1k+',
-  responseTime: '2 min',
-  paymentMethods: {
-    pix: true,
-    cartao: true,
-    dinheiro: true
-  },
-  storeCategory: 'Acessórios'
-};
+
 
 export const AppProvider = ({ children }) => {
   const [partner, setPartner] = useState(initialPartner);
@@ -140,10 +125,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('boox_theme');
-    return saved || 'dark';
-  });
+
 
 
 
