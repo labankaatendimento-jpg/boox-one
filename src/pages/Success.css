@@ -1,0 +1,77 @@
+.success-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+}
+
+.success-header {
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.success-header h2 {
+  font-size: 1.25rem;
+  color: var(--color-green);
+  margin-bottom: 8px;
+}
+
+.success-header p {
+  font-size: 0.85rem;
+}
+
+.success-actions {
+  margin-bottom: 32px;
+}
+
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.link-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.link-icon {
+  color: var(--text-secondary);
+}
+
+.link-info h3 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.link-info p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.link-card-group {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sub-card {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sub-card:last-child {
+  border-bottom: none;
+}

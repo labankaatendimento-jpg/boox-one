@@ -1,0 +1,371 @@
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.admin-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.admin-header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.theme-toggle-btn, .logout-btn {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: border-color 0.2s;
+}
+
+.theme-toggle-btn:active, .logout-btn:active {
+  border-color: var(--color-green);
+}
+
+.admin-section {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-section h3 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr; /* Stack inputs vertically by default to prevent layout breaking */
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Avatar Upload styling */
+.avatar-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.avatar-preview-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.avatar-preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-fallback-icon {
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+.avatar-file-label {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: border-color 0.2s;
+}
+
+.avatar-file-label:active {
+  border-color: var(--color-green);
+}
+
+.btn-remove-avatar {
+  background-color: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+
+.form-group label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.form-group input, .form-group select {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 14px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--color-green);
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-group input {
+  width: auto;
+  cursor: pointer;
+}
+
+.admin-save-btn {
+  margin-top: 8px;
+}
+
+.save-success-msg {
+  color: var(--color-green);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-add-product {
+  background-color: transparent;
+  border: 1px solid var(--color-green);
+  color: var(--color-green);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.add-product-form {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.add-product-form h4 {
+  font-size: 0.95rem;
+  margin-bottom: -4px;
+}
+
+.photo-upload-container {
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.photo-upload-container:hover {
+  border-color: var(--color-green);
+}
+
+.photo-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.uploaded-photo-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.uploaded-photo-preview img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.uploaded-photo-preview button {
+  font-size: 0.8rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.admin-products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.admin-product-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.admin-prod-img-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.admin-prod-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-prod-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-prod-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.admin-prod-name-row h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.admin-prod-cat {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+}
+
+.admin-prod-prices {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.checkbox-mini-toggle {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+  gap: 2px;
+}
+
+.checkbox-mini-toggle input {
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--color-green);
+}
+
+.delete-prod-btn {
+  color: #ef4444;
+  opacity: 0.7;
+  padding: 8px;
+  transition: opacity 0.2s;
+}
+
+.delete-prod-btn:active {
+  opacity: 1;
+}
+
+/* Checkbox options grid in Admin Profile settings */
+.checkbox-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 4px;
+}
+
+.checkbox-option-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.checkbox-option-item input {
+  cursor: pointer;
+  accent-color: var(--color-green);
+  width: 16px;
+  height: 16px;
+}
+

@@ -1,0 +1,109 @@
+.payment-method-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+}
+
+.left-align {
+  text-align: left;
+}
+
+.left-align h2 {
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+
+.methods-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.method-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.method-card.selected {
+  border-color: var(--color-green);
+  background-color: rgba(92, 255, 102, 0.05);
+}
+
+.method-icon {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.method-info {
+  flex: 1;
+}
+
+.method-info h3 {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.method-info p {
+  font-size: 0.75rem;
+}
+
+.radio-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.method-card.selected .radio-circle {
+  border-color: var(--color-green);
+}
+
+.radio-inner {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-green);
+  border-radius: 50%;
+}
+
+.info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: auto;
+  margin-bottom: 24px;
+}
+
+.info-icon {
+  color: #F59E0B;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.info-box p {
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.methods-footer {
+  margin-top: 0;
+}
