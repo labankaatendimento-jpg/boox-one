@@ -16,6 +16,7 @@ const Home = () => {
     <div className="page home-page">
       <div className="home-header">
         <div className="brand-logo">BOOX<span>•</span>ONE</div>
+        <img src="/favicon.png" alt="Caixa Misteriosa" className="home-hero-icon" />
         <p className="home-tagline">Abra <span>•</span> Descubra <span>•</span> Ganhe</p>
       </div>
 
