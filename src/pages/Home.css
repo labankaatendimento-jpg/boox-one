@@ -28,19 +28,12 @@
 }
 
 .home-hero-icon {
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
   margin-top: 6px;
   margin-bottom: 12px;
   filter: drop-shadow(0 0 12px rgba(92, 255, 102, 0.3));
-  animation: float-icon 3s ease-in-out infinite;
-}
-
-@keyframes float-icon {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
 }
 
 .home-tagline {
